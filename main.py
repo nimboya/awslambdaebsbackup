@@ -3,9 +3,9 @@ from datetime import datetime
 from bson.json_util import dumps
 
 def optionrouter(event, context, callback):
-    if event.action == 'create':
+    if event['action'] == 'create':
         createinstance(event.instancename, event.instanceid, event.description)
-    elif event.action == 'delete':
+    elif event['action'] == 'delete':
         deleteinstance(event.instanceid)
     else:
         pass
