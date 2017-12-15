@@ -3,7 +3,7 @@ from pymongo import MongoClient
 
 def connect():
     if config.environment == "production":
-        client = MongoClient('mongodb://%s:%s@%s:%s/andromeda' % (config.mongousername, config.mongopassword, config.mongohost, config.mongoport))
+        client = MongoClient('mongodb://%s:%s@%s:%s' % (config.mongousername, config.mongopassword, config.mongohost, config.mongoport))
         db = client['andromeda']
         instances = db.instances
         return instances
@@ -12,4 +12,3 @@ def connect():
         db = client['andromeda']
         instances = db.instances
         return instances
-

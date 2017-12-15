@@ -2,7 +2,7 @@ import os, config, mongoconn, json
 from datetime import datetime
 from bson.json_util import dumps
 
-def optionrouter(event, context, callback):
+def optionrouter(event, context):
     if event['action'] == 'create':
         createinstance(event['instancename'], event['instanceid'], event['description'])
     elif event['action'] == 'delete':
@@ -18,20 +18,15 @@ def createinstance(instancename='', instanceid='', description=''):
     instancedata = {'instancename':instancename,'instanceid':instanceid,'description':description,'created':created}
     conn = mongoconn.connect()
     result = conn.insert_one(instancedata)
-    print "created"
+    context.succeed("created")
 
 def getinstances():
     conn = mongoconn.connect()
     instances = conn.find({},{"_id": 0})
-    
-    #for instance in instances:
-    #    print '{"instanceid":"%s", "instancename":"%s"}' %  (instance['instanceid'], instance['instancename'])
     js = dumps(instances)
-    print js
+    return js
 
 def deleteinstance(instanceid):
     conn = mongoconn.connect()
     conn.delete_one({'instanceid':instanceid})
-    print "deleteinstance"
-
-getinstances()
+    return "deleteinstance"
