@@ -1,15 +1,15 @@
-import os, config
+import config
 from pymongo import MongoClient
-from datetime import datetime
 
 def connect():
     if config.environment == "production":
-        client = MongoClient('mongodb://%s:%s@%s:%s/terragonbackup' % (config.mongousername, config.mongopassword, config.mongohost, config.mongoport))
-        db = client['terragonbackup']
+        client = MongoClient('mongodb://%s:%s@%s:%s/andromeda' % (config.mongousername, config.mongopassword, config.mongohost, config.mongoport))
+        db = client['andromeda']
         instances = db.instances
         return instances
     else:
         client = MongoClient('localhost', 27017)
-        db = client['terragonbackup']
+        db = client['andromeda']
         instances = db.instances
         return instances
+
