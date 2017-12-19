@@ -1,15 +1,19 @@
-import boto3
-import os
-import time
+import boto, os, mongoconn, time
+from bson.json_util import dumps
+from datetime import datetime
 
 timestamp = int(time.time())
-accesskey = os.environ['accesskey']
-secretkey = os.environ['secrekey']
+#accesskey = os.getenv('accesskey')
+#secretkey = os.getenv('secrekey')
 
-ec = boto3.client('ec2', aws_access_key_id=accesskey, aws_secret_access_key=secretkey)
-
-def lambda_handler(event, context):
-    print "helloworld"
+#ec = boto3.client('ec2', aws_access_key_id=accesskey, aws_secret_access_key=secretkey)
+ec = boto3.client('ec2')
+def lambda_handler(event='', context=''):
+    conn = mongoconn.connect()
+    instances = conn.find({},{"_id": 0})
+    for instance in instances:
+        startsnapshot(instance['instanceid'])
+        print instance['instanceid']
 
 def startsnapshot(instanceid):
         reservations = ec.describe_instances(
@@ -38,3 +42,4 @@ def startsnapshot(instanceid):
                     Description='Mobilezone Database Snapshot on ' + str(timestamp)
                 )
 
+lambda_handler()
