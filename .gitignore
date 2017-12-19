@@ -5,3 +5,4 @@ pymong-3.6.0.dist-info/*
 pymong-3.6.0.dist-info/top_level.txt
 .vscode/*
 ebsbackup.zip
+*.pyc

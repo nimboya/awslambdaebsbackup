@@ -8,7 +8,7 @@ timestamp = int(time.time())
 
 #ec = boto3.client('ec2', aws_access_key_id=accesskey, aws_secret_access_key=secretkey)
 ec = boto3.client('ec2')
-def lambda_handler(event='', context=''):
+def lambda_handler(event, context):
     conn = mongoconn.connect()
     instances = conn.find({},{"_id": 0})
     for instance in instances:
