@@ -3,8 +3,8 @@ from bson.json_util import dumps
 from datetime import datetime
 
 timestamp = int(time.time())
-accesskey = 'AKIAJ4EARHHTRFZO7VMQ' #os.getenv('accesskey')
-secretkey = '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' #os.getenv('secrekey')
+accesskey =  os.getenv('accesskey')
+secretkey =  os.getenv('secrekey')
 
 ec = boto3.client('ec2', aws_access_key_id=accesskey, aws_secret_access_key=secretkey)
 #ec = boto3.client('ec2')
